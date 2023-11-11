@@ -6,14 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import TestProject.City;
-import TestProject.Country;
-
 public class FileIO {
 	public static final String filePath = "countries_and_cities.csv";
 
 	public static List<Country> readCountries() {
-		
 		ArrayList<Country> countries = new ArrayList<>();
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
