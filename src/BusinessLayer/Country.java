@@ -23,4 +23,17 @@ public class Country {
 	public void addTemperatureMeasurement(Temperature t) {
 		temperatures.add(t);
 	}
+	
+	@Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Country: ").append(name).append("\n");
+
+        stringBuilder.append("Temperatures:\n");
+        for (Temperature t : temperatures) {
+            stringBuilder.append(t.toString()).append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
 }

@@ -92,4 +92,32 @@ public class City {
         		- 0.7 * (rA.getUnitAbsorptionValue() / (windSpeed.getMetersPerSecond() + 10));
         return feltTemperatureValue;
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("City: ").append(name).append("\n");
+
+        stringBuilder.append("Temperatures:\n");
+        for (Temperature t : temperatures) {
+            stringBuilder.append(t.toString()).append("\n");
+        }
+
+        stringBuilder.append("Wind Speeds:\n");
+        for (WindSpeed ws : windSpeeds) {
+            stringBuilder.append(ws.toString()).append("\n");
+        }
+
+        stringBuilder.append("Humidities:\n");
+        for (Humidity h : humidities) {
+            stringBuilder.append(h.toString()).append("\n");
+        }
+
+        stringBuilder.append("Radiation Absorptions:\n");
+        for (RadiationAbsorption ra : radiationAbsorptions) {
+            stringBuilder.append(ra.toString()).append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
 }
