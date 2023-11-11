@@ -9,6 +9,7 @@ public class Country {
 
     public Country(String name) {
         this.name = name;
+        this.temperatures = new ArrayList<>();
     }
 
     public String getName() {

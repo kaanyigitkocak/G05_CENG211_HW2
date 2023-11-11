@@ -10,6 +10,10 @@ public class City {
 
     public City(String name) {
         this.name = name;
+        this.temperatures = new ArrayList<>();
+        this.windSpeeds = new ArrayList<>();
+        this.humidities = new ArrayList<>();
+        this.radiationAbsorptions = new ArrayList<>();
     }
 
     public String getName() {
