@@ -1,5 +1,7 @@
 package DataAccessLayer;
 
+import BusinessLayer.Country;
+import BusinessLayer.City;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

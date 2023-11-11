@@ -2,7 +2,7 @@ package BusinessLayer;
 
 import java.util.Random;
 
-class Temperature extends ClimateMeasurement {
+public class Temperature extends ClimateMeasurement {
     private double celciusMeasurement;
     private double fahrenheitMeasurement;
     private double kelvinMeasurement;

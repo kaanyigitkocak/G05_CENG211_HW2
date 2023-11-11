@@ -2,7 +2,7 @@ package BusinessLayer;
 
 import java.util.Random;
 
-class WindSpeed extends ClimateMeasurement {
+public class WindSpeed extends ClimateMeasurement {
     private double metersPerSecond;
     private double kmPerHour;
 

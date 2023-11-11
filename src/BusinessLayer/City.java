@@ -1,7 +1,7 @@
 package BusinessLayer;
 import java.util.ArrayList;
 
-class City {
+public class City {
     private String name;
     private ArrayList<ClimateMeasurement> measurements;  // Change here
 

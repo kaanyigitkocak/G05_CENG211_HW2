@@ -2,7 +2,7 @@ package BusinessLayer;
 
 import java.util.Random;
 
-class RadiationAbsorption extends ClimateMeasurement {
+public class RadiationAbsorption extends ClimateMeasurement {
     private RadiationIntensity radiationIntensity;
     private double unitAbsorptionValue;
 

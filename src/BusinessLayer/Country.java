@@ -3,7 +3,7 @@ package BusinessLayer;
 import java.util.ArrayList;
 
 
-class Country {
+public class Country {
     private String name;
     private ArrayList<City> cities;
 

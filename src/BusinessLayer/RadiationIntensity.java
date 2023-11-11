@@ -1,5 +1,5 @@
 package BusinessLayer;
 
-enum RadiationIntensity {
+public enum RadiationIntensity {
     LOW, MEDIUM, HIGH
 }
