@@ -31,34 +31,34 @@ public class City {
     }
 
     //belirtilen ay ve yıl için feltTemperature değerini döndürür yiğit adam.
-    public double calculateFeltTemperature(int year, String month) {
+    public double calculateFeltTemperature(int year, int month) {
     	Temperature temperature = null;
         WindSpeed windSpeed = null;
         Humidity humidity = null;
         RadiationAbsorption rA = null;
     	for (Temperature t : temperatures) {
-            if (t.year == year && t.month.equals(month)) {
+            if ((t.year == year) && (t.month == month)) {
                 temperature = t;
                 break; 
             }
         }
 
         for (WindSpeed ws : windSpeeds) {
-            if (ws.year == year && ws.month.equals(month)) {
+            if (ws.year == year && ws.month == month) {
                 windSpeed = ws;
                 break;
             }
         }
 
         for (Humidity h : humidities) {
-            if (h.year == year && h.month.equals(month)) {
+            if (h.year == year && h.month == month) {
                 humidity = h;
                 break;
             }
         }
 
         for (RadiationAbsorption ra : radiationAbsorptions) {
-            if (ra.year == year && ra.month.equals(month)) {
+            if (ra.year == year && ra.month == month) {
                 rA = ra;
                 break;
             }
