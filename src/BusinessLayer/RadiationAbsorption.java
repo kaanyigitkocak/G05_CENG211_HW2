@@ -6,7 +6,7 @@ public class RadiationAbsorption extends ClimateMeasurement {
     private RadiationIntensity radiationIntensity;
     private double unitAbsorptionValue;
 
-    public RadiationAbsorption(int year, String month) {
+    public RadiationAbsorption(int year, int month) {
         super(year, month);
         initializeMeasurements();
     }

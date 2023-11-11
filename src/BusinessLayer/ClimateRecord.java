@@ -10,6 +10,7 @@ public class ClimateRecord {
 
     public ClimateRecord() {
     	setCitiesAndCountries();
+    	setMeasurementsForCountriesAndCities();
     }
 
     private void setCitiesAndCountries() {
@@ -32,9 +33,26 @@ public class ClimateRecord {
     public void addCity(City city) {
         cities.add(city);
     }
-
-	
-
-	
+    
+    private void setMeasurementsForCountriesAndCities() {
+    	for(int year = 2020; year <= 2022; year++) {
+    		for(int month = 1; month <= 12; month++) {
+        		for(City city: cities) {
+        			Humidity humidity = new Humidity(year, month);
+            		RadiationAbsorption rA = new RadiationAbsorption(year, month);
+            		Temperature temp = new Temperature(year, month);
+            		WindSpeed wS = new WindSpeed(year, month);
+            		city.addMeasurement(humidity);
+            		city.addMeasurement(rA);
+            		city.addMeasurement(temp);
+            		city.addMeasurement(wS);
+        		}
+        		for(Country country: countries) {
+        			Temperature temp = new Temperature(year, month);
+        			country.addTemperatureMeasurement(temp);
+        		}
+        	}
+    	}
+    }
 
 }

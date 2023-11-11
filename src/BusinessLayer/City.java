@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 public class City {
     private String name;
-    ArrayList<Temperature> temperatures;
-    ArrayList<WindSpeed> windSpeeds;
-    ArrayList<Humidity> humidities;
-    ArrayList<RadiationAbsorption> radiationAbsorptions; 
+    private ArrayList<Temperature> temperatures;
+    private ArrayList<WindSpeed> windSpeeds;
+    private ArrayList<Humidity> humidities;
+    private ArrayList<RadiationAbsorption> radiationAbsorptions; 
 
     public City(String name) {
         this.name = name;
@@ -30,7 +30,7 @@ public class City {
         }
     }
 
-    //belirtilen ay için feltTemperature değerini döndürür yiğit adam.
+    //belirtilen ay ve yıl için feltTemperature değerini döndürür yiğit adam.
     public double calculateFeltTemperature(int year, String month) {
     	Temperature temperature = null;
         WindSpeed windSpeed = null;

@@ -5,7 +5,7 @@ import java.util.Random;
 public class Humidity extends ClimateMeasurement {
     private double humidityPercentage;
 
-    public Humidity(int year, String month) {
+    public Humidity(int year, int month) {
         super(year, month);
         initializeMeasurements();
     }

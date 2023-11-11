@@ -3,7 +3,6 @@ package PresentationLayer;
 import BusinessLayer.City;
 import BusinessLayer.ClimateRecord;
 import BusinessLayer.Country;
-import DataAccessLayer.FileIO;
 
 public class ClimateApp {
 
@@ -13,11 +12,10 @@ public class ClimateApp {
 		for(Country country: cr.getCountries()) {
 			System.out.println(country.getName());
 		}
-		for(City city: FileIO.readCities()) {
+		for(City city: cr.getCities()) {
 			System.out.println(city.getName());
 		}
-		System.out.println(FileIO.readCities());
-		System.out.println("anan");
+		System.out.println("Mama let my heart go");
 	}
 
 }
