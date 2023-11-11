@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileIO {
-	public static final String filePath = "countries_and_cities.csv";
+	public static final String filePath = "files/countries_and_cities.csv";
 
 	public static List<Country> readCountries() {
 		ArrayList<Country> countries = new ArrayList<>();
