@@ -41,28 +41,28 @@ public class City {
         Humidity humidity = null;
         RadiationAbsorption rA = null;
     	for (Temperature t : temperatures) {
-            if ((t.year == year) && (t.month == month)) {
+            if ((t.getYear() == year) && (t.getMonth() == month)) {
                 temperature = t;
                 break; 
             }
         }
 
         for (WindSpeed ws : windSpeeds) {
-            if (ws.year == year && ws.month == month) {
+            if (ws.getYear() == year && ws.getMonth()== month) {
                 windSpeed = ws;
                 break;
             }
         }
 
         for (Humidity h : humidities) {
-            if (h.year == year && h.month == month) {
+            if (h.getYear() == year && h.getMonth() == month) {
                 humidity = h;
                 break;
             }
         }
 
         for (RadiationAbsorption ra : radiationAbsorptions) {
-            if (ra.year == year && ra.month == month) {
+            if (ra.getYear() == year && ra.getMonth() == month) {
                 rA = ra;
                 break;
             }

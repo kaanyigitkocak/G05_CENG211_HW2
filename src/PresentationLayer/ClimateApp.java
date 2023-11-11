@@ -10,10 +10,10 @@ public class ClimateApp {
 		
 		ClimateRecord cr = new ClimateRecord();
 		for(Country country: cr.getCountries()) {
-			System.out.println(country.getName());
+			System.out.println(country.toString());
 		}
 		for(City city: cr.getCities()) {
-			System.out.println(city.getName());
+			System.out.println(city.toString());
 		}
 		System.out.println("Mama let my heart go");
 	}
