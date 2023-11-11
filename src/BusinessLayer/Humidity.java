@@ -12,6 +12,10 @@ public class Humidity extends ClimateMeasurement {
 
     private void initializeMeasurements() {
         Random random = new Random();
-        humidityPercentage = 0.0 + (100.0 - 0.0) * random.nextDouble();
+        humidityPercentage = 100.0 * random.nextDouble();
     }
+
+	public double getHumidityPercentage() {
+		return humidityPercentage;
+	}
 }

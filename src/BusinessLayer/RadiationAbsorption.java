@@ -16,4 +16,12 @@ public class RadiationAbsorption extends ClimateMeasurement {
         unitAbsorptionValue = 5.0 + (20.0 - 5.0) * random.nextDouble();
         radiationIntensity = RadiationIntensity.values()[random.nextInt(RadiationIntensity.values().length)];
     }
+
+	public RadiationIntensity getRadiationIntensity() {
+		return radiationIntensity;
+	}
+
+	public double getUnitAbsorptionValue() {
+		return unitAbsorptionValue;
+	}
 }

@@ -20,4 +20,12 @@ public class WindSpeed extends ClimateMeasurement {
     private double metersPerSecondToKmPerHour(double metersPerSecond) {
         return metersPerSecond * 3.6;
     }
+
+	public double getKmPerHour() {
+		return kmPerHour;
+	}
+	
+	public double getMetersPerSecond() {
+		return metersPerSecond;
+	}
 }

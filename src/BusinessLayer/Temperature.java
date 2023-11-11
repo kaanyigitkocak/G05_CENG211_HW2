@@ -26,4 +26,16 @@ public class Temperature extends ClimateMeasurement {
     private double celsiusToKelvin(double celsius) {
         return celsius + 273.15;
     }
+    
+    public double getCelciusMeasurement() {
+		return celciusMeasurement;
+	}
+
+	public double getFahrenheitMeasurement() {
+		return fahrenheitMeasurement;
+	}
+
+	public double getKelvinMeasurement() {
+		return kelvinMeasurement;
+	}
 }

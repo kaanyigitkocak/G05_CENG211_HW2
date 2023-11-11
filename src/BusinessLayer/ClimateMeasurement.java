@@ -7,5 +7,5 @@ public class ClimateMeasurement {
     public ClimateMeasurement(int year, String month) {
         this.year = year;
         this.month = month;
-    }
+    }   
 }
