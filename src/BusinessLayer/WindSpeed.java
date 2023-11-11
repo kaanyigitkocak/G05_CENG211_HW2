@@ -28,4 +28,10 @@ public class WindSpeed extends ClimateMeasurement {
 	public double getMetersPerSecond() {
 		return metersPerSecond;
 	}
+	
+	 @Override
+	    public String toString() {
+	        return "Wind Speed Measurement - Year: " + getYear() + ", Month: " + getMonth()
+	                + ", Meters Per Second: " + metersPerSecond + ", Km Per Hour: " + kmPerHour;
+	    }
 }

@@ -18,4 +18,10 @@ public class Humidity extends ClimateMeasurement {
 	public double getHumidityPercentage() {
 		return humidityPercentage;
 	}
+	
+	@Override
+    public String toString() {
+        return "Humidity Measurement - Year: " + getYear() + ", Month: " + getMonth()
+                + ", Humidity Percentage: " + humidityPercentage;
+    }
 }

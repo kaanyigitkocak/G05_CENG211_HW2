@@ -38,4 +38,11 @@ public class Temperature extends ClimateMeasurement {
 	public double getKelvinMeasurement() {
 		return kelvinMeasurement;
 	}
+	
+	@Override
+    public String toString() {
+        return "Temperature Measurement - Year: " + getYear() + ", Month: " + getMonth()
+                + ", Celsius: " + celciusMeasurement + ", Fahrenheit: " + fahrenheitMeasurement
+                + ", Kelvin: " + kelvinMeasurement;
+    }
 }

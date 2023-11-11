@@ -24,4 +24,10 @@ public class RadiationAbsorption extends ClimateMeasurement {
 	public double getUnitAbsorptionValue() {
 		return unitAbsorptionValue;
 	}
+	
+	@Override
+    public String toString() {
+        return "Radiation Absorption Measurement - Year: " + getYear() + ", Month: " + getMonth()
+                + ", Radiation Intensity: " + radiationIntensity + ", Unit Absorption Value: " + unitAbsorptionValue;
+    }
 }
