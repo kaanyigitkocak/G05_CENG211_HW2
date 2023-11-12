@@ -6,7 +6,7 @@ public class WindSpeed extends ClimateMeasurement {
     private double metersPerSecond;
     private double kmPerHour;
 
-    public WindSpeed(int year, int month) {
+    public WindSpeed(int year, String month) {
         super(year, month);
         initializeMeasurements();
     }

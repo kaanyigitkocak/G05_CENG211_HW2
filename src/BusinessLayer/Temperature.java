@@ -7,7 +7,7 @@ public class Temperature extends ClimateMeasurement {
     private double fahrenheitMeasurement;
     private double kelvinMeasurement;
 
-    public Temperature(int year, int month) {
+    public Temperature(int year, String month) {
         super(year, month);
         initializeMeasurements();
     }

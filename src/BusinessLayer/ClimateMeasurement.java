@@ -2,9 +2,9 @@ package BusinessLayer;
 
 public class ClimateMeasurement {
     private int year;
-    private int month;
+    private String month;
 
-    public ClimateMeasurement(int year, int month) {
+    public ClimateMeasurement(int year, String month) {
         this.year = year;
         this.month = month;
     }   
@@ -13,7 +13,7 @@ public class ClimateMeasurement {
     	return year;
     }
     
-    public int getMonth() {
+    public String getMonth() {
     	return month;
     }
 }
