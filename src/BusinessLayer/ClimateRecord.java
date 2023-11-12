@@ -1,7 +1,6 @@
 package BusinessLayer;
 
 import java.util.ArrayList;
-import BusinessLayer.Months;
 
 import DataAccessLayer.FileIO;
 
@@ -38,17 +37,17 @@ public class ClimateRecord {
     private void setMeasurementsForCountriesAndCities() {
     	for(int year = 2020; year <= 2022; year++) {
     		for(int monthIndex = 0; monthIndex < 12; monthIndex++) {
-    			String month = Months.values()[monthIndex].name();
+    			String month = Month.values()[monthIndex].name();
         		for(City city: cities) {
         		
         			Humidity humidity = new Humidity(year, month);
-            		RadiationAbsorption rA = new RadiationAbsorption(year, month);
-            		Temperature temp = new Temperature(year, month);
-            		WindSpeed wS = new WindSpeed(year, month);
+            		RadiationAbsorption radiationAbsorption = new RadiationAbsorption(year, month);
+            		Temperature temperature = new Temperature(year, month);
+            		WindSpeed windSpeed = new WindSpeed(year, month);
             		city.addMeasurement(humidity);
-            		city.addMeasurement(rA);
-            		city.addMeasurement(temp);
-            		city.addMeasurement(wS);
+            		city.addMeasurement(radiationAbsorption);
+            		city.addMeasurement(temperature);
+            		city.addMeasurement(windSpeed);
         		}
         		for(Country country: countries) {
         			Temperature temp = new Temperature(year, month);

@@ -35,7 +35,7 @@ public class City {
     }
 
     //belirtilen ay ve yıl için feltTemperature değerini döndürür yiğit adam.
-    public double calculateFeltTemperature(int year, int month) {
+    public double calculateFeltTemperature(int year, String month) {
     	Temperature temperature = null;
         WindSpeed windSpeed = null;
         Humidity humidity = null;
