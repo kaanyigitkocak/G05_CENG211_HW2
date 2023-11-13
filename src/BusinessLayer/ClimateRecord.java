@@ -321,7 +321,6 @@ public class ClimateRecord {
             	}
             
             System.out.println("Times: " + count);
-            System.out.println(selectedCity.getRadiationAbsorptions().toString());
         	
         }
     
@@ -374,7 +373,59 @@ public class ClimateRecord {
         
     	
     }
-    
+    public void calculateFeltTemperatureForCity(Scanner scanner) {
+    	City selectedCity = null;
+        
+        boolean cityFound = false;
+
+        while (!cityFound) {
+            System.out.print("Enter the name of the city: ");
+            String cityName = scanner.nextLine();
+            
+
+            for (City city : cities) {
+                if (city.getName().equalsIgnoreCase(cityName)) {
+                    selectedCity = city;
+                    cityFound = true;
+                    break;
+                }
+            }
+
+            if (!cityFound) {
+                System.out.println("City is invalid: " + cityName);
+            }
+        }
+        System.out.println("[1] 2020 [2] 2021 [3] 2022");
+        System.out.print("Please select the year: ");
+        int selectedYearNumber = scanner.nextInt();
+        
+        while (selectedYearNumber < 0 || selectedYearNumber > 4) {
+            System.out.println("Incorrect option input! Please reenter another option input: ");
+            selectedYearNumber = scanner.nextInt();
+        }
+        
+        int selectedYear = selectedYearNumber + 2019;
+    	String input;
+    	Month month;
+
+        do {
+            System.out.print("Enter a month: ");
+            input = scanner.nextLine().toUpperCase();
+
+            try {
+                month = Month.valueOf(input);
+  
+                break; 
+                } 
+            catch (IllegalArgumentException e) {
+                System.out.println("Invalid month name");
+            }
+        } while (true);
+        
+        double feltTemperature = selectedCity.calculateFeltTemperature(selectedYear,month.toString());
+        System.out.println("Felt Temperature : " +feltTemperature );
+        
+    }
     private void setMeasurementsForCountriesAndCities() {
     	for(int year = 2020; year <= 2022; year++) {
     		for(int monthIndex = 0; monthIndex < 12; monthIndex++) {

@@ -82,6 +82,7 @@ public class City {
         }
         
         if (temperature == null) {
+
             System.out.println("Temperature measurement could not be found for the specified year and month.");
             return 0;
         }

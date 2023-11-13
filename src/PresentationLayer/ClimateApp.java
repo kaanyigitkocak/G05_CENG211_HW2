@@ -44,7 +44,7 @@ public class ClimateApp {
                 	climateRecord.calculateIntensityValueTimesForYearAndCity(scanner);
                     break;
                 case 6:
-                	System.out.println("6");
+                	climateRecord.calculateFeltTemperatureForCity(scanner);
                     break;
                 case 7:
                     System.out.println("==> Closing the application...");
