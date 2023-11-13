@@ -24,6 +24,7 @@ public class Country {
 		temperatures.add(t);
 	}
 	
+	
 	@Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

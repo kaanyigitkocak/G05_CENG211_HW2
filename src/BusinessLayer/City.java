@@ -20,6 +20,13 @@ public class City {
         return name;
     }
 
+	public ArrayList<Temperature> getTemperatures() {
+		return temperatures;
+	}
+	public ArrayList<WindSpeed> getWindSpeeds() {
+		return windSpeeds;
+	}
+	
     public void addMeasurement(ClimateMeasurement measurement) {
         if (measurement instanceof Temperature) {
             temperatures.add((Temperature) measurement);
