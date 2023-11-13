@@ -35,8 +35,71 @@ public class ClimateRecord {
         cities.add(city);
     }
     
+    private int selectTemperatureType(Scanner scanner) {
+        int temperatureType = 0;
+
+        while (true) {
+            System.out.println("[1] Celsius [2] Fahrenheit [3] Kelvin");
+            System.out.print("Please select the temperature unit: ");
+
+            if (scanner.hasNextInt()) {
+                temperatureType = scanner.nextInt();
+
+                if (temperatureType >= 1 && temperatureType <= 3) {
+                    break;
+                } else {
+                    System.out.println("Incorrect option input! Please reenter another option input.");
+                }
+            } else {
+                System.out.println("Incorrect input! Please enter a valid option number.");
+                scanner.next(); 
+            }
+        }
+
+        return temperatureType;
+    }
+
     public void calculateAverageTemperatureCountry(Scanner scanner) {
 
+    	Country selectedCountry = selectCountryMenu(scanner);
+        
+    	int temperatureType = selectTemperatureType(scanner);
+    	
+    	int selectedYear = selectYearMenu(scanner);
+    	
+        String temperatureName = null;
+        
+        double totalTemperature = 0;
+        int count = 0;
+
+        for (Temperature temperature : selectedCountry.getTemperatures()) {
+            if (temperature.getYear() == selectedYear) {
+                count++;
+                switch (temperatureType) {
+                    case 1:
+                    	temperatureName = "Celcius";
+                        totalTemperature = temperature.getCelciusMeasurement();
+                        break;
+                    case 2:
+                    	temperatureName = "Fahrenheit";
+                        totalTemperature = temperature.getFahrenheitMeasurement();
+                        break;
+                    case 3:
+                    	temperatureName = "Kelvin";
+                        totalTemperature = temperature.getKelvinMeasurement();
+                        break;
+                }
+                break;
+            }
+        }
+        if (count == 0) {
+            System.out.println("No temperature measurements found for the specified year");
+        }
+
+        System.out.println("Average temperature of " + selectedCountry.getName() + " in " + temperatureName + " in " + selectedYear + ": " + totalTemperature +"\n");
+    }
+    
+    private Country selectCountryMenu(Scanner scanner) {
         Country selectedCountry = null;
         
         boolean countryFound = false;
@@ -58,113 +121,25 @@ public class ClimateRecord {
                 System.out.println("Country is invalid: " + countryName);
             }
         }
-        
-        System.out.println("[1] Celsius [2] Fahrenheit [3] Kelvin");
-        System.out.print("Please select the temperature unit: ");
-        int temperatureType = scanner.nextInt();
-
-        // Handle incorrect temperature type input
-        while (temperatureType < 1 || temperatureType > 3) {
-            System.out.println("Incorrect option input! Please reenter another option input: ");
-            temperatureType = scanner.nextInt();
-        }
-        String temperatureName = null	;
-
-        System.out.println("[1] 2020 [2] 2021 [3] 2022");
-        System.out.print("Please select the year: ");
-        int selectedYearNumber = scanner.nextInt();
-
-        // Handle incorrect year input
-        while (selectedYearNumber < 0 || selectedYearNumber > 4) {
-            System.out.println("Incorrect option input! Please reenter another option input: ");
-            selectedYearNumber = scanner.nextInt();
-        }
-
-
-        int year = selectedYearNumber + 2019;
-        double totalTemperature = 0;
-        int count = 0;
-
-        for (Temperature temperature : selectedCountry.getTemperatures()) {
-            if (temperature.getYear() == year) {
-                count++;
-                switch (temperatureType) {
-                    case 1:
-                    	temperatureName = "Celcius";
-                        totalTemperature = temperature.getCelciusMeasurement();
-                        break;
-                    case 2:
-                    	temperatureName = "Fahrenheit";
-                        totalTemperature = temperature.getFahrenheitMeasurement();
-                        break;
-                    case 3:
-                    	temperatureName = "Kelvin";
-                        totalTemperature = temperature.getKelvinMeasurement();
-                        break;
-
-                }
-                break;
-            }
-        }
-        if (count == 0) {
-            System.out.println("No temperature measurements found for the specified year");
-        }
-
-        System.out.println("Average temperature of " + selectedCountry.getName() + " in " + temperatureName + " in " + year + ": " + totalTemperature +"\n");
+        return selectedCountry;
     }
     
     public void calculateAverageTemperatureCity(Scanner scanner) {
 
-        City selectedCity = null;
+    	City selectedCity = selectCityMenu(scanner);
         
-        boolean cityFound = false;
-
-        while (!cityFound) {
-            System.out.print("Enter the name of the city: ");
-            String cityName = scanner.nextLine();
-            
-
-            for (City city : cities) {
-                if (city.getName().equalsIgnoreCase(cityName)) {
-                    selectedCity = city;
-                    cityFound = true;
-                    break;
-                }
-            }
-
-            if (!cityFound) {
-                System.out.println("City is invalid: " + cityName);
-            }
-        }
-        
-        System.out.println("[1] Celsius [2] Fahrenheit [3] Kelvin");
-        System.out.print("Please select the temperature unit: ");
-        int temperatureType = scanner.nextInt();
-
-        // Handle incorrect temperature type input
-        while (temperatureType < 1 || temperatureType > 4) {
-            System.out.println("Incorrect option input! Please reenter another option input: ");
-            temperatureType = scanner.nextInt();
-        }
-        String temperatureName = null	;
-
-        System.out.println("[1] 2020 [2] 2021 [3] 2022");
-        System.out.print("Please select the year: ");
-        int selectedYearNumber = scanner.nextInt();
-
-        // Handle incorrect year input
-        while (selectedYearNumber < 0 || selectedYearNumber > 4) {
-            System.out.println("Incorrect option input! Please reenter another option input: ");
-            selectedYearNumber = scanner.nextInt();
-        }
+    	int temperatureType = selectTemperatureType(scanner);
+    	
+    	int selectedYear = selectYearMenu(scanner);
+    	
+        String temperatureName = null;
 
 
-        int year = selectedYearNumber + 2019;
         double totalTemperature = 0;
         int count = 0;
 
         for (Temperature temperature : selectedCity.getTemperatures()) {
-            if (temperature.getYear() == year) {
+            if (temperature.getYear() == selectedYear) {
                 count++;
                 switch (temperatureType) {
                     case 1:
@@ -188,11 +163,12 @@ public class ClimateRecord {
             System.out.println("No temperature measurements found for the specified year");
         }
 
-        System.out.println("Average temperature of " + selectedCity.getName() + " in " + temperatureName + " in " + year + ": " + totalTemperature +"\n");
+        System.out.println("Average temperature of " + selectedCity.getName() + " in " + temperatureName + " in " + selectedYear + ": " + totalTemperature +"\n");
     }
+ 
+
     
-    public void calculateAverageWindSpeedForCity(Scanner scanner) {
-    	
+    private City selectCityMenu(Scanner scanner) {
         City selectedCity = null;
         
         boolean cityFound = false;
@@ -214,24 +190,37 @@ public class ClimateRecord {
                 System.out.println("City is invalid: " + cityName);
             }
         }
-        
+        return selectedCity;
+    }
+    private Month selectMonthMenu() {
     	String input;
     	Month month;
+    	
+    	Scanner scanner = new Scanner(System.in);
+    	do {
+    	    System.out.print("Enter a month: ");
+    	    input = scanner.nextLine().trim().toUpperCase();
 
-        do {
-            System.out.print("Enter a month: ");
-            input = scanner.nextLine().toUpperCase();
+    	    // Kullanıcının boş giriş yapması durumunda tekrar sormak üzere döngüyü devam ettir
+    	    if (input.length()<=0) {
+    	        System.out.println("Please enter a valid month name.");
+    	        continue;
+    	    }
 
-            try {
-                month = Month.valueOf(input);
-  
-                break; 
-                } 
-            catch (IllegalArgumentException e) {
-                System.out.println("Invalid month name");
-            }
-        } while (true);
+    	    try {
+    	        month = Month.valueOf(input);
+    	        break; 
+    	    } catch (IllegalArgumentException e) {
+    	        System.out.println("Invalid month name: " + input);
+    	    }
+    	} while (true);
+    	return month;
+    }
+    public void calculateAverageWindSpeedForCity(Scanner scanner) {
+    	
+    	City selectedCity = selectCityMenu(scanner);
         
+    	Month month = selectMonthMenu();
         
         System.out.println("[1] m/s [2] km/h");
         System.out.print("Please select the temperature unit: ");
@@ -271,28 +260,9 @@ public class ClimateRecord {
 
     }
     
-    public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
-        City selectedCity = null;
-        
-        boolean cityFound = false;
-
-        while (!cityFound) {
-            System.out.print("Enter the name of the city: ");
-            String cityName = scanner.nextLine();
-            
-
-            for (City city : cities) {
-                if (city.getName().equalsIgnoreCase(cityName)) {
-                    selectedCity = city;
-                    cityFound = true;
-                    break;
-                }
-            }
-
-            if (!cityFound) {
-                System.out.println("City is invalid: " + cityName);
-            }
-        }
+    	public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
+    	
+    		City selectedCity = selectCityMenu(scanner);
             System.out.println("[1] LOW [2] MEDIUM [3] HIGH");
             System.out.print("Please enter the radiation intensity value: ");
 
@@ -338,27 +308,7 @@ public class ClimateRecord {
     	}
     public void calculateAverageHumidityCity(Scanner scanner) {
     	
-    	City selectedCity = null;
-        
-        boolean cityFound = false;
-
-        while (!cityFound) {
-            System.out.print("Enter the name of the city: ");
-            String cityName = scanner.nextLine();
-            
-
-            for (City city : cities) {
-                if (city.getName().equalsIgnoreCase(cityName)) {
-                    selectedCity = city;
-                    cityFound = true;
-                    break;
-                }
-            }
-
-            if (!cityFound) {
-                System.out.println("City is invalid: " + cityName);
-            }
-        }
+    	City selectedCity = selectCityMenu(scanner);
         
         double topHumidity= 0.0;
         int count = 0;
@@ -373,54 +323,37 @@ public class ClimateRecord {
         
     	
     }
-    public void calculateFeltTemperatureForCity(Scanner scanner) {
-    	City selectedCity = null;
-        
-        boolean cityFound = false;
+    
+    private int selectYearMenu(Scanner scanner) {
+        int selectedYear = 0;
 
-        while (!cityFound) {
-            System.out.print("Enter the name of the city: ");
-            String cityName = scanner.nextLine();
-            
+        while (true) {
+            System.out.println("[1] 2020 [2] 2021 [3] 2022");
+            System.out.print("Please select the year: ");
 
-            for (City city : cities) {
-                if (city.getName().equalsIgnoreCase(cityName)) {
-                    selectedCity = city;
-                    cityFound = true;
+            if (scanner.hasNextInt()) {
+                selectedYear = scanner.nextInt();
+
+                if (selectedYear >= 1 && selectedYear <= 3) {
                     break;
+                } else {
+                    System.out.println("Incorrect option input! Please reenter another option input.");
                 }
-            }
-
-            if (!cityFound) {
-                System.out.println("City is invalid: " + cityName);
+            } else {
+                System.out.println("Incorrect input! Please enter a valid option number.");
+                scanner.next(); 
             }
         }
-        System.out.println("[1] 2020 [2] 2021 [3] 2022");
-        System.out.print("Please select the year: ");
-        int selectedYearNumber = scanner.nextInt();
-        
-        while (selectedYearNumber < 0 || selectedYearNumber > 4) {
-            System.out.println("Incorrect option input! Please reenter another option input: ");
-            selectedYearNumber = scanner.nextInt();
-        }
-        
-        int selectedYear = selectedYearNumber + 2019;
-    	String input;
-    	Month month;
 
-        do {
-            System.out.print("Enter a month: ");
-            input = scanner.nextLine().toUpperCase();
+        return selectedYear + 2019;
+    }
 
-            try {
-                month = Month.valueOf(input);
-  
-                break; 
-                } 
-            catch (IllegalArgumentException e) {
-                System.out.println("Invalid month name");
-            }
-        } while (true);
+    public void calculateFeltTemperatureForCity(Scanner scanner) {
+    	City selectedCity = selectCityMenu(scanner);
+    	
+    	int selectedYear = selectYearMenu(scanner);
+    	
+    	Month month = selectMonthMenu();
         
         double feltTemperature = selectedCity.calculateFeltTemperature(selectedYear,month.toString());
         System.out.println("Felt Temperature : " +feltTemperature );
