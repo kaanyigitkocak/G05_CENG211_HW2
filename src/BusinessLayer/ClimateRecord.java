@@ -241,19 +241,30 @@ public class ClimateRecord {
             System.out.println("Incorrect option input! Please reenter another option input: ");
             speedPerTimeType = scanner.nextInt();
         }
+        double topSpeed = 0.0;
         for (WindSpeed windSpeed : selectedCity.getWindSpeeds()) {
             if (windSpeed.getMonth().equals(month.toString())) {
             	switch (speedPerTimeType) {
                 case 1:
-                    System.out.println("Meters Per Second: " + windSpeed.getMetersPerSecond());
+                    topSpeed += windSpeed.getMetersPerSecond();
                     break;
                 case 2:
-                    System.out.println("Kilometers Per Hour: " + windSpeed.getKmPerHour());
+                	topSpeed += windSpeed.getKmPerHour();
                     break;
-                default:
-                    System.out.println("Unknown speed type");
-            }
-            }
+            		}	
+            	}
+
+        	}
+        double averageSpeed = topSpeed/3;
+        switch (speedPerTimeType) {
+        case 1:
+            System.out.println("Meters Per Second: " + averageSpeed);
+            break;
+        case 2:
+            System.out.println("Kilometers Per Hour: " + averageSpeed);
+            break;
+        default:
+            System.out.println("Unknown speed type");
         }
         
 
