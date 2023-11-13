@@ -256,6 +256,7 @@ public class ClimateRecord {
 
         	}
         double averageSpeed = topSpeed/3;
+        
         switch (speedPerTimeType) {
         case 1:
             System.out.println("Meters Per Second: " + averageSpeed);
@@ -268,6 +269,110 @@ public class ClimateRecord {
         }
         
 
+    }
+    
+    public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
+        City selectedCity = null;
+        
+        boolean cityFound = false;
+
+        while (!cityFound) {
+            System.out.print("Enter the name of the city: ");
+            String cityName = scanner.nextLine();
+            
+
+            for (City city : cities) {
+                if (city.getName().equalsIgnoreCase(cityName)) {
+                    selectedCity = city;
+                    cityFound = true;
+                    break;
+                }
+            }
+
+            if (!cityFound) {
+                System.out.println("City is invalid: " + cityName);
+            }
+        }
+            System.out.println("[1] LOW [2] MEDIUM [3] HIGH");
+            System.out.print("Please enter the radiation intensity value: ");
+
+            int radiationValue = scanner.nextInt();
+            RadiationIntensity intensity = null;
+            
+            while (radiationValue < 1 || radiationValue > 4) {
+                System.out.println("Incorrect option input! Please reenter another option input: ");
+                radiationValue = scanner.nextInt();
+            }
+            
+            intensity = determineRadiationIntensity(radiationValue);
+
+            
+            System.out.println("Selected Radiation Intensity: " + intensity);
+
+
+        
+
+        
+            int count = 0;
+            
+            for (RadiationAbsorption radiationAbsorption : selectedCity.getRadiationAbsorptions()) {
+            		if(radiationAbsorption.getRadiationIntensity().toString() == intensity.toString()) 
+            			count++;
+            	}
+            
+            System.out.println("Times: " + count);
+            System.out.println(selectedCity.getRadiationAbsorptions().toString());
+        	
+        }
+    
+    	private static RadiationIntensity determineRadiationIntensity(int value) {
+    		switch (value) {
+    		case 1:
+    			return RadiationIntensity.LOW;
+    		case 2:
+    			return RadiationIntensity.MEDIUM;
+    		case 3:
+    			return RadiationIntensity.HIGH;
+    		default:
+    			return null;
+    			}
+    	}
+    public void calculateAverageHumidityCity(Scanner scanner) {
+    	
+    	City selectedCity = null;
+        
+        boolean cityFound = false;
+
+        while (!cityFound) {
+            System.out.print("Enter the name of the city: ");
+            String cityName = scanner.nextLine();
+            
+
+            for (City city : cities) {
+                if (city.getName().equalsIgnoreCase(cityName)) {
+                    selectedCity = city;
+                    cityFound = true;
+                    break;
+                }
+            }
+
+            if (!cityFound) {
+                System.out.println("City is invalid: " + cityName);
+            }
+        }
+        
+        double topHumidity= 0.0;
+        int count = 0;
+        
+        for (Humidity humidity : selectedCity.getHumidities()) {
+        		topHumidity = humidity.getHumidityPercentage();
+        		count++;
+        	}
+        double averageHumidity= topHumidity/count;
+        System.out.println("Average humidity of city : " + averageHumidity);
+        
+        
+    	
     }
     
     private void setMeasurementsForCountriesAndCities() {

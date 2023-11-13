@@ -26,6 +26,12 @@ public class City {
 	public ArrayList<WindSpeed> getWindSpeeds() {
 		return windSpeeds;
 	}
+	public ArrayList<Humidity> getHumidities() {
+		return humidities;
+	}
+	public ArrayList<RadiationAbsorption> getRadiationAbsorptions() {
+		return radiationAbsorptions;
+	}
 	
     public void addMeasurement(ClimateMeasurement measurement) {
         if (measurement instanceof Temperature) {

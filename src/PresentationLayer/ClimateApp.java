@@ -13,9 +13,8 @@ public class ClimateApp {
 		
 		ClimateRecord climateRecord = new ClimateRecord();
 		Scanner scanner = new Scanner(System.in);
-        System.out.println(climateRecord.getCountries().toString());
         while (true) {
-            System.out.println("****************************************************");
+            System.out.println("\n****************************************************");
             System.out.println("[1] Calculate average temperature for a country according to temperature unit and year.");
             System.out.println("[2] Calculate average temperature for a city according to temperature unit and year.");
             System.out.println("[3] Calculate average wind speed for a city according to speed unit and year.");
@@ -39,10 +38,10 @@ public class ClimateApp {
                 	climateRecord.calculateAverageWindSpeedForCity(scanner);
                     break;
                 case 4:
-                	System.out.println("4");
+                	climateRecord.calculateAverageHumidityCity(scanner);
                     break;
                 case 5:
-                	System.out.println("5");
+                	climateRecord.calculateIntensityValueTimesForYearAndCity(scanner);
                     break;
                 case 6:
                 	System.out.println("6");
