@@ -13,6 +13,8 @@ public class ClimateApp {
 		
 		ClimateRecord climateRecord = new ClimateRecord();
 		Scanner scanner = new Scanner(System.in);
+        int option;
+        
         while (true) {
             System.out.println("\n****************************************************");
             System.out.println("[1] Calculate average temperature for a country according to temperature unit and year.");
@@ -24,9 +26,10 @@ public class ClimateApp {
             System.out.println("[7] Exit the application.");
             System.out.print("Please select an option: ");
 
-            int option = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
+            if (scanner.hasNextInt()) {
+                option = scanner.nextInt();
+                scanner.nextLine(); 
+                
             switch (option) {
                 case 1:
                     climateRecord.calculateAverageTemperatureCountry(scanner);
@@ -52,6 +55,10 @@ public class ClimateApp {
                     break;
                 default:
                     System.out.println("Incorrect option input! Please reenter another option input.");
+            }
+            } else {
+                System.out.println("Invalid input. Please enter a valid option number.");
+                scanner.nextLine(); 
             }
         }
 	}

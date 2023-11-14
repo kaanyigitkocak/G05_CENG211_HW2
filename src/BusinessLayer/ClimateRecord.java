@@ -1,5 +1,6 @@
 package BusinessLayer;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -95,8 +96,11 @@ public class ClimateRecord {
         if (count == 0) {
             System.out.println("No temperature measurements found for the specified year");
         }
+        
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        String formattedTotalTemperature = decimalFormat.format(totalTemperature);
 
-        System.out.println("Average temperature of " + selectedCountry.getName() + " in " + temperatureName + " in " + selectedYear + ": " + totalTemperature +"\n");
+        System.out.println("Average temperature of " + selectedCountry.getName() + " in " + temperatureName + " in " + selectedYear + ": " + formattedTotalTemperature +"\n");
     }
     
     private Country selectCountryMenu(Scanner scanner) {
@@ -162,8 +166,11 @@ public class ClimateRecord {
         if (count == 0) {
             System.out.println("No temperature measurements found for the specified year");
         }
-
-        System.out.println("Average temperature of " + selectedCity.getName() + " in " + temperatureName + " in " + selectedYear + ": " + totalTemperature +"\n");
+        
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        String formattedTotalTemperature = decimalFormat.format(totalTemperature);
+        
+        System.out.println("Average temperature of " + selectedCity.getName() + " in " + temperatureName + " in " + selectedYear + ": " + formattedTotalTemperature +"\n");
     }
  
 
@@ -201,7 +208,7 @@ public class ClimateRecord {
     	    System.out.print("Enter a month: ");
     	    input = scanner.nextLine().trim().toUpperCase();
 
-    	    // Kullanıcının boş giriş yapması durumunda tekrar sormak üzere döngüyü devam ettir
+
     	    if (input.length()<=0) {
     	        System.out.println("Please enter a valid month name.");
     	        continue;
@@ -230,6 +237,7 @@ public class ClimateRecord {
             System.out.println("Incorrect option input! Please reenter another option input: ");
             speedPerTimeType = scanner.nextInt();
         }
+        
         double topSpeed = 0.0;
         for (WindSpeed windSpeed : selectedCity.getWindSpeeds()) {
             if (windSpeed.getMonth().equals(month.toString())) {
@@ -246,12 +254,15 @@ public class ClimateRecord {
         	}
         double averageSpeed = topSpeed/3;
         
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        String formattedAverageSpeed = decimalFormat.format(averageSpeed);
+        
         switch (speedPerTimeType) {
         case 1:
-            System.out.println("Meters Per Second: " + averageSpeed);
+            System.out.println("Meters Per Second " + formattedAverageSpeed + " for "+ selectedCity.getName()+" in "+ month.toString());
             break;
         case 2:
-            System.out.println("Kilometers Per Hour: " + averageSpeed);
+            System.out.println("Kilometers Per Hour: " + formattedAverageSpeed+ " for "+ selectedCity.getName()+" in "+ month.toString());
             break;
         default:
             System.out.println("Unknown speed type");
@@ -276,13 +287,7 @@ public class ClimateRecord {
             
             intensity = determineRadiationIntensity(radiationValue);
 
-            
-            System.out.println("Selected Radiation Intensity: " + intensity);
 
-
-        
-
-        
             int count = 0;
             
             for (RadiationAbsorption radiationAbsorption : selectedCity.getRadiationAbsorptions()) {
@@ -290,11 +295,11 @@ public class ClimateRecord {
             			count++;
             	}
             
-            System.out.println("Times: " + count);
+            System.out.println("Selected radiation intensity " + count + " times for "+ intensity.toString() +" in "+ selectedCity.getName());
         	
         }
     
-    	private static RadiationIntensity determineRadiationIntensity(int value) {
+      private static RadiationIntensity determineRadiationIntensity(int value) {
     		switch (value) {
     		case 1:
     			return RadiationIntensity.LOW;
@@ -317,8 +322,13 @@ public class ClimateRecord {
         		topHumidity = humidity.getHumidityPercentage();
         		count++;
         	}
+        
         double averageHumidity= topHumidity/count;
-        System.out.println("Average humidity of city : " + averageHumidity);
+        
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        String formattedAverageHumidity = decimalFormat.format(averageHumidity);
+        
+        System.out.println("Average humidity of city : " + formattedAverageHumidity + " for "+ selectedCity.getName());
         
         
     	
@@ -356,7 +366,9 @@ public class ClimateRecord {
     	Month month = selectMonthMenu();
         
         double feltTemperature = selectedCity.calculateFeltTemperature(selectedYear,month.toString());
-        System.out.println("Felt Temperature : " +feltTemperature );
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        String formattedAFeltTemperature = decimalFormat.format(feltTemperature);
+        System.out.println("Felt Temperature : " +formattedAFeltTemperature+ " for "+ selectedCity.getName()+" in "+ month.toString() );
         
     }
     private void setMeasurementsForCountriesAndCities() {
