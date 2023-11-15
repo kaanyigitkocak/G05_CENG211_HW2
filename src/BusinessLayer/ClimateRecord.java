@@ -2,6 +2,7 @@ package BusinessLayer;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 import DataAccessLayer.FileIO;
@@ -200,32 +201,37 @@ public class ClimateRecord {
         return selectedCity;
     }
     private Month selectMonthMenu() {
-    	String input;
-    	Month month;
-    	
-    	Scanner scanner = new Scanner(System.in);
-    	do {
-    	    System.out.print("Enter a month: ");
-    	    input = scanner.nextLine().trim().toUpperCase();
+        String input;
+        Month month;
 
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.print("Enter a month: ");
+            input = scanner.nextLine().trim();
 
-    	    if (input.length()<=0) {
-    	        System.out.println("Please enter a valid month name.");
-    	        continue;
-    	    }
+            if (input.length() <= 0) {
+                System.out.println("Please enter a valid month name.");
+                continue;
+            }
 
-    	    try {
-    	        month = Month.valueOf(input);
-    	        break; 
-    	    } catch (IllegalArgumentException e) {
-    	        System.out.println("Invalid month name: " + input);
-    	    }
-    	} while (true);
-    	return month;
+            // Türkçe karakterleri büyük harfe dönüştürmek için Locale kullanımı
+            input = input.toUpperCase(new Locale("tr-TR"));
+
+            try {
+                month = Month.valueOf(input);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid month name: " + input);
+            }
+        } while (true);
+        return month;
     }
+
+
     public void calculateAverageWindSpeedForCity(Scanner scanner) {
     	
     	City selectedCity = selectCityMenu(scanner);
+
         
     	Month month = selectMonthMenu();
         
@@ -239,8 +245,9 @@ public class ClimateRecord {
         }
         
         double topSpeed = 0.0;
+        
         for (WindSpeed windSpeed : selectedCity.getWindSpeeds()) {
-            if (windSpeed.getMonth().equals(month.toString())) {
+            if (windSpeed.getMonth().equals(month.toString()) ) {
             	switch (speedPerTimeType) {
                 case 1:
                     topSpeed += windSpeed.getMetersPerSecond();
@@ -259,10 +266,10 @@ public class ClimateRecord {
         
         switch (speedPerTimeType) {
         case 1:
-            System.out.println("Meters Per Second " + formattedAverageSpeed + " for "+ selectedCity.getName()+" in "+ month.toString());
+            System.out.println("Meters Per Second " + formattedAverageSpeed + " for "+ selectedCity.getName()+" in "+ month.toString().toLowerCase());
             break;
         case 2:
-            System.out.println("Kilometers Per Hour: " + formattedAverageSpeed+ " for "+ selectedCity.getName()+" in "+ month.toString());
+            System.out.println("Kilometers Per Hour: " + formattedAverageSpeed+ " for "+ selectedCity.getName()+" in "+ month.toString().toLowerCase());
             break;
         default:
             System.out.println("Unknown speed type");
@@ -270,32 +277,38 @@ public class ClimateRecord {
         
 
     }
-    
-    	public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
-    	
-    		City selectedCity = selectCityMenu(scanner);
+    	private int selectRadiationIntensity(Scanner scanner) {
             System.out.println("[1] LOW [2] MEDIUM [3] HIGH");
             System.out.print("Please enter the radiation intensity value: ");
 
             int radiationValue = scanner.nextInt();
-            RadiationIntensity intensity = null;
+            
             
             while (radiationValue < 1 || radiationValue > 4) {
                 System.out.println("Incorrect option input! Please reenter another option input: ");
                 radiationValue = scanner.nextInt();
             }
+            return radiationValue;
+    	}
+    	public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
+    	
+    		City selectedCity = selectCityMenu(scanner);
+    		
+        	int selectedYear = selectYearMenu(scanner);
+
+        	RadiationIntensity intensity = null;
             
-            intensity = determineRadiationIntensity(radiationValue);
+            intensity = determineRadiationIntensity(selectRadiationIntensity(scanner));
 
 
             int count = 0;
             
             for (RadiationAbsorption radiationAbsorption : selectedCity.getRadiationAbsorptions()) {
-            		if(radiationAbsorption.getRadiationIntensity().toString() == intensity.toString()) 
+            		if(radiationAbsorption.getRadiationIntensity().toString() == intensity.toString() && radiationAbsorption.getYear() == selectedYear) 
             			count++;
             	}
             
-            System.out.println("Selected radiation intensity " + count + " times for "+ intensity.toString() +" in "+ selectedCity.getName());
+            System.out.println("Selected radiation intensity " + count + " times for "+ intensity.toString().toLowerCase() +" in "+ selectedCity.getName());
         	
         }
     
@@ -319,7 +332,7 @@ public class ClimateRecord {
         int count = 0;
         
         for (Humidity humidity : selectedCity.getHumidities()) {
-        		topHumidity = humidity.getHumidityPercentage();
+        		topHumidity += humidity.getHumidityPercentage();
         		count++;
         	}
         
@@ -368,7 +381,7 @@ public class ClimateRecord {
         double feltTemperature = selectedCity.calculateFeltTemperature(selectedYear,month.toString());
         DecimalFormat decimalFormat = new DecimalFormat("0.0");
         String formattedAFeltTemperature = decimalFormat.format(feltTemperature);
-        System.out.println("Felt Temperature : " +formattedAFeltTemperature+ " for "+ selectedCity.getName()+" in "+ month.toString() );
+        System.out.println("Felt Temperature : " +formattedAFeltTemperature+ " for "+ selectedCity.getName()+" in "+ month.toString().toLowerCase() );
         
     }
     private void setMeasurementsForCountriesAndCities() {
