@@ -64,13 +64,9 @@ public class ClimateRecord {
     public void calculateAverageTemperatureCountry(Scanner scanner) {
 
     	Country selectedCountry = selectCountryMenu(scanner);
-        
     	int temperatureType = selectTemperatureType(scanner);
-    	
     	int selectedYear = selectYearMenu(scanner);
-    	
         String temperatureName = null;
-        
         double totalTemperature = 0;
         int count = 0;
 
@@ -106,13 +102,11 @@ public class ClimateRecord {
     
     private Country selectCountryMenu(Scanner scanner) {
         Country selectedCountry = null;
-        
         boolean countryFound = false;
 
         while (!countryFound) {
             System.out.print("Enter the name of the country: ");
             String countryName = scanner.nextLine();
-            
 
             for (Country country : countries) {
                 if (country.getName().equalsIgnoreCase(countryName)) {
@@ -130,16 +124,10 @@ public class ClimateRecord {
     }
     
     public void calculateAverageTemperatureCity(Scanner scanner) {
-
     	City selectedCity = selectCityMenu(scanner);
-        
     	int temperatureType = selectTemperatureType(scanner);
-    	
     	int selectedYear = selectYearMenu(scanner);
-    	
         String temperatureName = null;
-
-
         double totalTemperature = 0;
         int count = 0;
 
@@ -173,19 +161,15 @@ public class ClimateRecord {
         
         System.out.println("Average temperature of " + selectedCity.getName() + " in " + temperatureName + " in " + selectedYear + ": " + formattedTotalTemperature +"\n");
     }
- 
-
     
     private City selectCityMenu(Scanner scanner) {
         City selectedCity = null;
-        
         boolean cityFound = false;
 
         while (!cityFound) {
             System.out.print("Enter the name of the city: ");
             String cityName = scanner.nextLine();
             
-
             for (City city : cities) {
                 if (city.getName().equalsIgnoreCase(cityName)) {
                     selectedCity = city;
@@ -193,7 +177,6 @@ public class ClimateRecord {
                     break;
                 }
             }
-
             if (!cityFound) {
                 System.out.println("City is invalid: " + cityName);
             }
@@ -203,8 +186,8 @@ public class ClimateRecord {
     private Month selectMonthMenu() {
         String input;
         Month month;
-
         Scanner scanner = new Scanner(System.in);
+        
         do {
             System.out.print("Enter a month: ");
             input = scanner.nextLine().trim();
@@ -227,12 +210,8 @@ public class ClimateRecord {
         return month;
     }
 
-
     public void calculateAverageWindSpeedForCity(Scanner scanner) {
-    	
     	City selectedCity = selectCityMenu(scanner);
-
-        
     	Month month = selectMonthMenu();
         
         System.out.println("[1] m/s [2] km/h");
@@ -258,7 +237,7 @@ public class ClimateRecord {
             		}	
             	}
 
-        	}
+        }
         double averageSpeed = topSpeed/3;
         
         DecimalFormat decimalFormat = new DecimalFormat("0.0");
@@ -274,46 +253,38 @@ public class ClimateRecord {
         default:
             System.out.println("Unknown speed type");
         }
-        
-
     }
-    	private int selectRadiationIntensity(Scanner scanner) {
-            System.out.println("[1] LOW [2] MEDIUM [3] HIGH");
-            System.out.print("Please enter the radiation intensity value: ");
-
-            int radiationValue = scanner.nextInt();
-            
-            
-            while (radiationValue < 1 || radiationValue > 4) {
-                System.out.println("Incorrect option input! Please reenter another option input: ");
-                radiationValue = scanner.nextInt();
-            }
-            return radiationValue;
-    	}
-    	public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
-    	
-    		City selectedCity = selectCityMenu(scanner);
-    		
-        	int selectedYear = selectYearMenu(scanner);
-
-        	RadiationIntensity intensity = null;
-            
-            intensity = determineRadiationIntensity(selectRadiationIntensity(scanner));
-
-
-            int count = 0;
-            
-            for (RadiationAbsorption radiationAbsorption : selectedCity.getRadiationAbsorptions()) {
-            		if(radiationAbsorption.getRadiationIntensity().toString() == intensity.toString() && radiationAbsorption.getYear() == selectedYear) 
-            			count++;
-            	}
-            
-            System.out.println("Selected radiation intensity " + count + " times for "+ intensity.toString().toLowerCase() +" in "+ selectedCity.getName());
-        	
-        }
     
-      private static RadiationIntensity determineRadiationIntensity(int value) {
-    		switch (value) {
+    private int selectRadiationIntensity(Scanner scanner) {
+    	System.out.println("[1] LOW [2] MEDIUM [3] HIGH");
+        System.out.print("Please enter the radiation intensity value: ");
+
+        int radiationValue = scanner.nextInt();
+
+        while (radiationValue < 1 || radiationValue > 4) {
+            System.out.println("Incorrect option input! Please reenter another option input: ");
+            radiationValue = scanner.nextInt();
+        }
+        return radiationValue;
+    }
+    
+    public void calculateIntensityValueTimesForYearAndCity(Scanner scanner) {
+    	City selectedCity = selectCityMenu(scanner);
+        int selectedYear = selectYearMenu(scanner);
+        RadiationIntensity intensity = null;   
+        intensity = determineRadiationIntensity(selectRadiationIntensity(scanner));
+        int count = 0;
+            
+        for (RadiationAbsorption radiationAbsorption : selectedCity.getRadiationAbsorptions()) {
+        	if(radiationAbsorption.getRadiationIntensity().toString() == intensity.toString() && radiationAbsorption.getYear() == selectedYear) {
+        		count++;
+            }
+            System.out.println("Selected radiation intensity " + count + " times for "+ intensity.toString().toLowerCase() +" in "+ selectedCity.getName());
+        }
+	}
+    
+    private RadiationIntensity determineRadiationIntensity(int value) {
+    	switch (value) {
     		case 1:
     			return RadiationIntensity.LOW;
     		case 2:
@@ -322,10 +293,10 @@ public class ClimateRecord {
     			return RadiationIntensity.HIGH;
     		default:
     			return null;
-    			}
     	}
+    }
+    
     public void calculateAverageHumidityCity(Scanner scanner) {
-    	
     	City selectedCity = selectCityMenu(scanner);
         
         double topHumidity= 0.0;
@@ -334,8 +305,7 @@ public class ClimateRecord {
         for (Humidity humidity : selectedCity.getHumidities()) {
         		topHumidity += humidity.getHumidityPercentage();
         		count++;
-        	}
-        
+        }
         double averageHumidity= topHumidity/count;
         
         DecimalFormat decimalFormat = new DecimalFormat("0.0");
@@ -343,8 +313,6 @@ public class ClimateRecord {
         
         System.out.println("Average humidity of city : " + formattedAverageHumidity + " for "+ selectedCity.getName());
         
-        
-    	
     }
     
     private int selectYearMenu(Scanner scanner) {
@@ -373,9 +341,7 @@ public class ClimateRecord {
 
     public void calculateFeltTemperatureForCity(Scanner scanner) {
     	City selectedCity = selectCityMenu(scanner);
-    	
     	int selectedYear = selectYearMenu(scanner);
-    	
     	Month month = selectMonthMenu();
         
         double feltTemperature = selectedCity.calculateFeltTemperature(selectedYear,month.toString());
@@ -384,6 +350,7 @@ public class ClimateRecord {
         System.out.println("Felt Temperature : " +formattedAFeltTemperature+ " for "+ selectedCity.getName()+" in "+ month.toString().toLowerCase() );
         
     }
+    
     private void setMeasurementsForCountriesAndCities() {
     	for(int year = 2020; year <= 2022; year++) {
     		for(int monthIndex = 0; monthIndex < 12; monthIndex++) {
@@ -406,5 +373,56 @@ public class ClimateRecord {
         	}
     	}
     }
+    
+    public void showMenu() {
+    	Scanner scanner = new Scanner(System.in);
+        int option;
+        
+        while (true) {
+            System.out.println("\n****************************************************");
+            System.out.println("[1] Calculate average temperature for a country according to temperature unit and year.");
+            System.out.println("[2] Calculate average temperature for a city according to temperature unit and year.");
+            System.out.println("[3] Calculate average wind speed for a city according to speed unit and year.");
+            System.out.println("[4] Calculate average humidity of a city for every year.");
+            System.out.println("[5] Count how many times a year a specific radiation intensity value appears for a city.");
+            System.out.println("[6] Calculate the “felt temperature” value of a city for a specific month and year.");
+            System.out.println("[7] Exit the application.");
+            System.out.print("Please select an option: ");
 
+            if (scanner.hasNextInt()) {
+                option = scanner.nextInt();
+                scanner.nextLine(); 
+                
+	            switch (option) {
+	                case 1:
+	                    calculateAverageTemperatureCountry(scanner);
+	                    break;
+	                case 2:
+	                	calculateAverageTemperatureCity(scanner);
+	                    break;
+	                case 3:
+	                	calculateAverageWindSpeedForCity(scanner);
+	                    break;
+	                case 4:
+	                	calculateAverageHumidityCity(scanner);
+	                    break;
+	                case 5:
+	                	calculateIntensityValueTimesForYearAndCity(scanner);
+	                    break;
+	                case 6:
+	                	calculateFeltTemperatureForCity(scanner);
+	                    break;
+	                case 7:
+	                    System.out.println("==> Closing the application...");
+	                    System.exit(0);
+	                    break;
+	                default:
+	                    System.out.println("Incorrect option input! Please reenter another option input.");
+	            }
+            } else {
+                System.out.println("Invalid input. Please enter a valid option number.");
+                scanner.nextLine(); 
+            }
+        }
+    }
 }

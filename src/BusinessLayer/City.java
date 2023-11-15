@@ -43,67 +43,66 @@ public class City {
         } else if (measurement instanceof RadiationAbsorption) {
             radiationAbsorptions.add((RadiationAbsorption) measurement);
         } else {
-            System.out.println("Geçersiz ölçüm türü");
+            System.out.println("Invalid measurement type.");
         }
     }
 
-    //belirtilen ay ve yıl için feltTemperature değerini döndürür yiğit adam.
     public double calculateFeltTemperature(int year, String month) {
-    	Temperature temperature = null;
-        WindSpeed windSpeed = null;
-        Humidity humidity = null;
-        RadiationAbsorption rA = null;
-    	for (Temperature t : temperatures) {
-            if ((t.getYear() == year) && (t.getMonth() == month)) {
-                temperature = t;
+    	Temperature temperatureOfCity = null;
+        WindSpeed windSpeedOfCity = null;
+        Humidity humidityOfCity = null;
+        RadiationAbsorption radiationAbsorptionOfCity = null;
+    	for (Temperature temperature : temperatures) {
+            if ((temperature.getYear() == year) && (temperature.getMonth() == month)) {
+                temperatureOfCity = temperature;
                 break; 
             }
         }
 
-        for (WindSpeed ws : windSpeeds) {
-            if (ws.getYear() == year && ws.getMonth()== month) {
-                windSpeed = ws;
+        for (WindSpeed windSpeed : windSpeeds) {
+            if (windSpeed.getYear() == year && windSpeed.getMonth()== month) {
+                windSpeedOfCity = windSpeed;
                 break;
             }
         }
 
-        for (Humidity h : humidities) {
-            if (h.getYear() == year && h.getMonth() == month) {
-                humidity = h;
+        for (Humidity humidity : humidities) {
+            if (humidity.getYear() == year && humidity.getMonth() == month) {
+                humidityOfCity = humidity;
                 break;
             }
         }
 
-        for (RadiationAbsorption ra : radiationAbsorptions) {
-            if (ra.getYear() == year && ra.getMonth() == month) {
-                rA = ra;
+        for (RadiationAbsorption radiationAbsorption : radiationAbsorptions) {
+            if (radiationAbsorption.getYear() == year && radiationAbsorption.getMonth() == month) {
+            	radiationAbsorptionOfCity = radiationAbsorption;
                 break;
             }
         }
         
-        if (temperature == null) {
+        if (temperatureOfCity == null) {
 
             System.out.println("Temperature measurement could not be found for the specified year and month.");
             return 0;
         }
-        if (windSpeed == null) {
+        if (windSpeedOfCity == null) {
             System.out.println("Wind speed measurement could not be found for the specified year and month.");
             return 0;
         }
 
-        if (humidity == null) {
+        if (humidityOfCity == null) {
             System.out.println("Humidity measurement could not be found for the specified year and month.");
             return 0;
         }
-        if (rA == null) {
+        if (radiationAbsorptionOfCity == null) {
             System.out.println("Radiation absorption measurement could not be found for the specified year and month.");
             return 0;
         }
         
         double feltTemperatureValue = 
-        		temperature.getCelciusMeasurement() 
-        		+ 0.3 * (humidity.getHumidityPercentage() / 100.0) 
-        		- 0.7 * (rA.getUnitAbsorptionValue() / (windSpeed.getMetersPerSecond() + 10));
+        		temperatureOfCity.getCelciusMeasurement() 
+        		+ 0.3 * (humidityOfCity.getHumidityPercentage() / 100.0) 
+        		- 0.7 * (radiationAbsorptionOfCity.getUnitAbsorptionValue() / (windSpeedOfCity.getMetersPerSecond() + 10));
         return feltTemperatureValue;
     }
     
@@ -113,23 +112,23 @@ public class City {
         stringBuilder.append("City: ").append(name).append("\n");
 
         stringBuilder.append("Temperatures:\n");
-        for (Temperature t : temperatures) {
-            stringBuilder.append(t.toString()).append("\n");
+        for (Temperature temperature : temperatures) {
+            stringBuilder.append(temperature.toString()).append("\n");
         }
 
         stringBuilder.append("Wind Speeds:\n");
-        for (WindSpeed ws : windSpeeds) {
-            stringBuilder.append(ws.toString()).append("\n");
+        for (WindSpeed windSpeed : windSpeeds) {
+            stringBuilder.append(windSpeed.toString()).append("\n");
         }
 
         stringBuilder.append("Humidities:\n");
-        for (Humidity h : humidities) {
-            stringBuilder.append(h.toString()).append("\n");
+        for (Humidity humidity : humidities) {
+            stringBuilder.append(humidity.toString()).append("\n");
         }
 
         stringBuilder.append("Radiation Absorptions:\n");
-        for (RadiationAbsorption ra : radiationAbsorptions) {
-            stringBuilder.append(ra.toString()).append("\n");
+        for (RadiationAbsorption radiationAbsorption : radiationAbsorptions) {
+            stringBuilder.append(radiationAbsorption.toString()).append("\n");
         }
 
         return stringBuilder.toString();
